@@ -16,7 +16,7 @@ public class DummyData {
     @Autowired
     CodeblogRepository codeblogRepository;
 
-    @PostConstruct
+    //@PostConstruct
     public void savePosts(){
         List<Post> postList = new ArrayList<>();
         Post post1 = new Post();
