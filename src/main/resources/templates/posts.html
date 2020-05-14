@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html xmlns:th=http://thymeleaf.org">
 <head></head>
 
     <title>MyCodeBlog</title>
@@ -22,14 +23,22 @@
                     <li class="breadcrumb-item active" aria-current="page">Posts</li>
                 </ol>
             </nav>
-
-            <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;">
+            <!-- th:each="post : &{posts}" -> percorre (for) a listagem e para cada pçost cria um card !-->
+            <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="post : ${posts}">
                 <div class="card-body">
-                    testando
+                   <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+                        <span th:text="${post.autor}"></span>
+                        <span th:text="${post.data}"></span>
+                    </p>
+                    <!-- Para o thymeleaf criar o link, apontando para a URL-->
+                    <a href="#"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;">
+                        </h4><span th:text="${post.titulo}"></span></a>
+                    <!-- Abbreviate mostra os primeiros caracteres (previa)-->
+                    <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)}"></span></p>
                 </div>
         </div>
     </div>
-
+    </div>
     </section>
 
 </body>
