@@ -18,7 +18,7 @@ public class CodeblogController {
     CodeblogService codeblogService;
 
     @RequestMapping(value = "/posts", method = RequestMethod.GET)
-    public ModelAndView getPosts(){ //recebe as requisições do cliente -> ModelAndView
+    public ModelAndView getPosts(){       //recebe as requisições do cliente -> ModelAndView
         ModelAndView mv = new ModelAndView("posts");
         List<Post> posts = codeblogService.findAll();
         mv.addObject("posts", posts);
@@ -27,10 +27,10 @@ public class CodeblogController {
 
     // Metodo vai receber através da URL /posts/id uma req para retornar os detalhes de um determinado post
     @RequestMapping(value="/posts/{id}", method = RequestMethod.GET)
-    public ModelAndView getPostDetail(@PathVariable("id") long id){
+    public ModelAndView getPostDetails(@PathVariable("id") long id){
         ModelAndView mv = new ModelAndView("postDetails"); //view
         Post post = codeblogService.findById(id);
-        mv.addObject("posts", post); //model
+        mv.addObject("post", post); //model
         return mv;
 
     }

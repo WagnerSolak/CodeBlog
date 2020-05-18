@@ -1,45 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th=http://thymeleaf.org">
-<head></head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width" />
 
     <title>MyCodeBlog</title>
     <!--CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
 <body>
 
-    <header>
-        <!-- As a link -->
-        <nav class="navbar navbar-light bg-light">
-            <span class="navbar-brand mb-0 h1" style="font-weight: bold;">MyCodeBlog</span>
+<header>
+    <!-- As a link -->
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1" style="font-weight: bold;">MyCodeBlog</span>
+    </nav>
+</header>
+
+<section>
+
+    <div class="container" style="widht:60%; padding-bottom: 30px;">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
+                <li class="breadcrumb-item active" aria-current="page">Posts</li>
+            </ol>
         </nav>
-    </header>
+        <!-- th:each="post : &{posts}" -> percorre (for) a listagem e para cada pçost cria um card !-->
+        <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="post : ${posts}">
+            <div class="card-body">
 
-    <section>
-    <div>
-        <div class="container" style="width: 60%; padding-bottom: 30px;">
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+                    <span th:text="${post.autor}"></span>
+                    <span th:text="${post.data}"></span>
+                </p>
+                <!-- Para o thymeleaf criar o link, apontando para a URL (titulo clicado)-->
+                <a th:href="${(#mvc.url('CC#getPostDetails').arg(0, post.id)).build()}"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;">
+                    <span th:text="${post.titulo}"></span></h4></a>
+                <!-- Abbreviate mostra os primeiros caracteres (previa)-->
+                <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)} "></span></p>
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb" style="background-color: white; padding-left: 0px;">
-                    <li class="breadcrumb-item active" aria-current="page">Posts</li>
-                </ol>
-            </nav>
-            <!-- th:each="post : &{posts}" -> percorre (for) a listagem e para cada pçost cria um card !-->
-            <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="post : ${posts}">
-                <div class="card-body">
-                   <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
-                        <span th:text="${post.autor}"></span>
-                        <span th:text="${post.data}"></span>
-                    </p>
-                    <!-- Para o thymeleaf criar o link, apontando para a URL-->
-                    <a href="#"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;">
-                        </h4><span th:text="${post.titulo}"></span></a>
-                    <!-- Abbreviate mostra os primeiros caracteres (previa)-->
-                    <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)}"></span></p>
-                </div>
+            </div>
         </div>
+
     </div>
-    </div>
-    </section>
+</section>
 
 </body>
 </html>
