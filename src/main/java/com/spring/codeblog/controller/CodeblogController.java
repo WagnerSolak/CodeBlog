@@ -49,7 +49,8 @@ public class CodeblogController {
     @RequestMapping(value = "/newpost", method = RequestMethod.POST)
     public String savePost(@Valid Post post, BindingResult result, RedirectAttributes attributes){
         if(result.hasErrors()){ // se na validação houver um erro (titulo, autor em branco)
-            return "redirect:/newpost";     //retorna mesma página do formulário!
+            attributes.addFlashAttribute("message", "Existem um ou mais campos obrigatório(s) em branco, verifique!");
+        return "redirect:/newpost";     //retorna mesma página do formulário!
         }
         post.setData(LocalDate.now());
         codeblogService.save(post);
